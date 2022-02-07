@@ -1,0 +1,7 @@
+.grid {
+    display: grid;
+    grid-auto-rows: min-content auto;
+
+    height: 100%;
+    width: 100%;
+}

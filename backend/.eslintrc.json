@@ -20,7 +20,10 @@
     "rules": {
         "indent": [
             "error",
-            2
+            2,
+            {
+                "SwitchCase": 1
+            }
         ],
         "linebreak-style": [
             "error",
@@ -35,5 +38,7 @@
             "always"
         ]
     },
-    "ignorePatterns": ["**/jquery-3.6.0.js"]
+    "ignorePatterns": [
+        "**/jquery-3.6.0.js"
+    ]
 }

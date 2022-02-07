@@ -4,20 +4,28 @@ import "./index.css";
 import App from "./App/App";
 import reportWebVitals from "./reportWebVitals";
 import Play from "./Play/Play";
-import Trending from "./Trending/Trending";
+import Skins from "./Skins/Skins";
 import Leaderboard from "./Leaderboard/Leaderboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { getSession } from "./utils/auth";
+import SignIn from "./SignIn/SignIn";
+import Register from "./Register/Register";
+import Profile from "./Profile/Profile";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route path="/play" element={<Play />} />
-        <Route path="/trending" element={<Trending />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
+  <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={getSession() ? <App/> : <SignIn/>}>
+          <Route path="/play" element={<Play />} />
+          <Route path="/skins" element={<Skins />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+        <Route path="/register" element={<Register/>} />
+      </Routes>
+    </BrowserRouter>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

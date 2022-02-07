@@ -1,12 +1,13 @@
-import React, { Fragment }  from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import ResponsiveAppBar from "../ResponsiveNavbar/ResponsiveAppBar";
+import "./App.css";
 
 export default function App() {
   return (
-    <Fragment>
+    <div className="grid">
       <ResponsiveAppBar></ResponsiveAppBar>
       <Outlet></Outlet>
-    </Fragment>
+    </div>
   );
 }

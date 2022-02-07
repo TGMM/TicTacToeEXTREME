@@ -13,19 +13,22 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 import { Link as RouterLink } from "react-router-dom";
+import { logOut } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 
-const pages = [{name: "Play", url: "/play"}, {name: "Trending", url: "/trending"}, {name: "Leaderboard", url: "/leaderboard"}];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = [{name: "Play", url: "/play"}, {name: "Skins", url: "/skins"}, {name: "Leaderboard", url: "/leaderboard"}];
+const settings = ["Profile", "Logout"];
 
 const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
 
-  const handleOpenNavMenu = (event: any) => {
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleOpenUserMenu = (event: any) => {
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
@@ -33,8 +36,21 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    const selectedItem = event.currentTarget.textContent;
     setAnchorElUser(null);
+
+    switch (selectedItem) {
+      case "Logout":
+        logOut();
+        window.location.href = "/";
+        break;
+      case "Profile":
+        navigate("/profile");
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -47,7 +63,7 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            LOGO
+            <img height={50} src={process.env.PUBLIC_URL + "/icon.png"} />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -92,7 +108,7 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            LOGO
+            <img width={50} src={process.env.PUBLIC_URL + "/icon.png"} />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -111,7 +127,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="T" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
